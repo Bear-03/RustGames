@@ -17,6 +17,7 @@ impl ScoreManager {
         let horizontal_middle = mq::screen_width() / 2.0;
 
         Self {
+            // The gap is appied to the X axis, separating he markers from the center
             player1: ScoreMarker::new(horizontal_middle - MARKER_GAP),
             player2: ScoreMarker::new(horizontal_middle + MARKER_GAP),
         }

@@ -3,6 +3,7 @@ use std::fmt;
 use macroquad::prelude as mq;
 use mq::{Color, Vec2};
 
+/// wrapper for macroquad text so it is easier to use
 pub struct Text {
     pub content: String,
     pos: Vec2,

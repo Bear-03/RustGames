@@ -12,21 +12,21 @@ fn wrap_around<T: PartialOrd>(value: T, min: T, max: T) -> T {
     }
 }
 
-pub struct Matrix {
+pub struct Grid {
     pub cells: Cells,
 }
 
-impl Matrix {
+impl Grid {
     pub fn new(randomize: bool) -> Self {
-        let mut matrix = Self {
+        let mut grid = Self {
             cells: [[false; GRID_SIZE.x]; GRID_SIZE.y],
         };
 
         if randomize {
-            matrix.randomize();
+            grid.randomize();
         }
 
-        matrix
+        grid
     }
 
     fn randomize(&mut self) {

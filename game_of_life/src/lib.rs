@@ -7,7 +7,7 @@ use consts::CELL_PX_SIZE;
 
 pub mod consts;
 mod game_states;
-mod matrix;
+mod grid;
 pub mod util;
 
 pub struct Game {
@@ -40,7 +40,7 @@ impl Game {
     }
 
     fn draw_grid(&self) {
-        self.shared_state.matrix.for_each(|x, y, &alive| {
+        self.shared_state.grid.for_each(|x, y, &alive| {
             if !alive {
                 return;
             }

@@ -13,6 +13,8 @@ impl Timer {
         }
     }
 
+    /// Returns whether or not the timer is
+    /// over. If it isn't it gets updated
     pub fn is_over(&mut self) -> bool {
         if self.seconds_left <= 0.0 {
             self.seconds_left = self.initial_seconds;

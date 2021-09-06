@@ -1,10 +1,9 @@
 use macroquad::prelude as mq;
 
 use crate::entities::{Ball, Collider, RacketPair};
-use crate::Global;
 use crate::ScoreManager;
 
-use super::{GameState, GameStateEnded, GameStateIdle};
+use super::{GameState, GameStateEnded, GameStateIdle, SharedState};
 
 #[derive(Debug)]
 pub struct GameStateRunning {
@@ -19,11 +18,11 @@ impl GameStateRunning {
     }
 
     #[allow(unused_must_use)]
-    fn check_ball_collisions(&mut self, global: &mut Global) {
-        if self.check_ball_side_collision(&mut global.ball) {
+    fn check_ball_collisions(&mut self, shared_state: &mut SharedState) {
+        if self.check_ball_side_collision(&mut shared_state.ball) {
             return;
         };
-        self.check_ball_racket_collision(&global.rackets, &mut global.ball);
+        self.check_ball_racket_collision(&shared_state.rackets, &mut shared_state.ball);
     }
 
     fn check_ball_side_collision(&mut self, ball: &mut Ball) -> bool {
@@ -63,17 +62,17 @@ impl GameStateRunning {
 }
 
 impl GameState for GameStateRunning {
-    fn update(&mut self, global: &mut Global) -> Option<Box<dyn GameState>> {
-        global.ball.update();
+    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+        shared_state.ball.update();
 
-        global.rackets.0.update();
-        global.rackets.1.update();
+        shared_state.rackets.0.update();
+        shared_state.rackets.1.update();
 
-        self.check_ball_collisions(global);
+        self.check_ball_collisions(shared_state);
 
-        match self.update_score(&mut global.ball, &mut global.score_manager) {
+        match self.update_score(&mut shared_state.ball, &mut shared_state.score_manager) {
             Some((player_num, score)) => {
-                global.ball = Ball::new();
+                shared_state.ball = Ball::new();
                 if score == 5 {
                     Some(Box::new(GameStateEnded::new(player_num)))
                 } else {

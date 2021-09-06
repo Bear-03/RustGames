@@ -22,28 +22,28 @@ impl GameStateEditing {
         Self {}
     }
 
-    fn handle_clicks(&self, global: &mut SharedState) {
+    fn handle_clicks(&self, shared_state: &mut SharedState) {
         if mq::is_mouse_button_down(MouseButton::Left) {
-            self.paint(global);
+            self.paint(shared_state);
         } else if mq::is_mouse_button_down(MouseButton::Right) {
-            self.erase(global);
+            self.erase(shared_state);
         }
     }
 
-    fn paint(&self, global: &mut SharedState) {
+    fn paint(&self, shared_state: &mut SharedState) {
         let coords = get_mouse_cell_pos();
-        global.matrix.cells[coords.x][coords.y] = true;
+        shared_state.grid.cells[coords.x][coords.y] = true;
     }
 
-    fn erase(&self, global: &mut SharedState) {
+    fn erase(&self, shared_state: &mut SharedState) {
         let coords = get_mouse_cell_pos();
-        global.matrix.cells[coords.x][coords.y] = false;
+        shared_state.grid.cells[coords.x][coords.y] = false;
     }
 }
 
 impl GameState for GameStateEditing {
-    fn update(&mut self, global: &mut SharedState) -> Option<Box<dyn GameState>> {
-        self.handle_clicks(global);
+    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+        self.handle_clicks(shared_state);
 
         if mq::is_key_pressed(KeyCode::Space) {
             Some(Box::new(GameStateRunning::new()))

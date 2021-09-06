@@ -1,8 +1,8 @@
 use macroquad::prelude as mq;
 use mq::vec2;
 
-use super::{GameState, GameStateRunning};
-use crate::{util::Text, Global};
+use super::{GameState, GameStateRunning, SharedState};
+use crate::util::Text;
 
 pub const TEXT_Y_OFFSET: f32 = 100.0;
 pub const FONT_SIZE: u16 = 100;
@@ -33,8 +33,8 @@ impl GameStateIdle {
 }
 
 impl GameState for GameStateIdle {
-    fn update(&mut self, global: &mut Global) -> Option<Box<dyn GameState>> {
-        let movement_leys_pressed = global
+    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+        let movement_leys_pressed = shared_state
             .rackets
             .get_all_controls()
             .iter()

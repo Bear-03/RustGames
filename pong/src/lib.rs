@@ -2,19 +2,17 @@ use macroquad::prelude as mq;
 use mq::KeyCode;
 use util::fps_counter::FpsCounter;
 
-use crate::game_states::{GameState, GameStateIdle};
+use crate::game_states::{GameState, GameStateIdle, SharedState};
 
-pub use global::Global;
 pub use score_manager::ScoreManager;
 
 mod entities;
 mod game_states;
-mod global;
 mod score_manager;
 mod util;
 
 pub struct Game {
-    global: Global,
+    global: SharedState,
     game_state: Box<dyn GameState>,
     debug_mode: bool,
     fps_counter: FpsCounter,
@@ -23,7 +21,7 @@ pub struct Game {
 impl Game {
     pub fn new() -> Self {
         Self {
-            global: Global::new(),
+            global: SharedState::new(),
             game_state: Box::new(GameStateIdle::new(true)),
             debug_mode: false,
             fps_counter: FpsCounter::default(),

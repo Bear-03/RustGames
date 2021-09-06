@@ -1,7 +1,7 @@
-use crate::{consts::RANDOMIZE_GRID, matrix::Matrix};
+use crate::{consts::RANDOMIZE_GRID, grid::Grid};
 
 pub struct SharedState {
-    pub matrix: Matrix,
+    pub grid: Grid,
 }
 
 impl SharedState {
@@ -13,7 +13,7 @@ impl SharedState {
 impl Default for SharedState {
     fn default() -> Self {
         Self {
-            matrix: Matrix::new(RANDOMIZE_GRID),
+            grid: Grid::new(RANDOMIZE_GRID),
         }
     }
 }
