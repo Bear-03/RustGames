@@ -18,7 +18,7 @@ Both games toggle an FPS counter when the F1 key is pressed.
 ### Game of Life
 
 -   Check the `src/consts.rs` file. It contains a set of constants that will let you
-    customize the game parameters.
+    customize the game.
 
 ### Pong
 
