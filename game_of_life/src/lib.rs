@@ -1,4 +1,5 @@
 use macroquad::prelude as mq;
+use mq::KeyCode;
 
 use game_states::{GameState, GameStateEditing, SharedState};
 use util::fps_counter::FpsCounter;
@@ -13,6 +14,7 @@ pub mod util;
 pub struct Game {
     shared_state: SharedState,
     game_state: Box<dyn GameState>,
+    debug_mode: bool,
     fps_counter: FpsCounter,
 }
 
@@ -21,12 +23,19 @@ impl Game {
         Self {
             shared_state: SharedState::new(),
             game_state: Box::new(GameStateEditing::new()),
+            debug_mode: false,
             fps_counter: FpsCounter::default(),
         }
     }
 
     pub fn update(&mut self) {
-        self.fps_counter.update();
+        if mq::is_key_pressed(KeyCode::F1) {
+            self.debug_mode = !self.debug_mode;
+        }
+
+        if self.debug_mode {
+            self.fps_counter.update();
+        }
 
         if let Some(new_game_state) = self.game_state.update(&mut self.shared_state) {
             self.game_state = new_game_state;
@@ -36,7 +45,10 @@ impl Game {
     pub fn draw(&self) {
         self.draw_grid();
         self.game_state.draw();
-        self.fps_counter.draw();
+
+        if self.debug_mode {
+            self.fps_counter.draw();
+        }
     }
 
     fn draw_grid(&self) {
