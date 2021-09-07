@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "common",
+    "game_of_life",
+    "pong"
+]
