@@ -13,7 +13,7 @@ to learn and code as many features as possible).
 
 ## Notes
 
-Both games toggle an FPS counter when the F1 key is pressed.
+All games toggle an FPS counter when the F1 key is pressed.
 
 ### Game of Life
 
@@ -22,4 +22,4 @@ Both games toggle an FPS counter when the F1 key is pressed.
 
 ### Pong
 
--   If your press F1, the debug view will also print the current game state.
+-   If your press F1, the debug view will also show the current game state.
