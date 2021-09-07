@@ -1,5 +1,6 @@
-use super::Timer;
+use super::{Text, Timer};
 use macroquad::prelude as mq;
+use mq::vec2;
 
 #[allow(dead_code)]
 pub enum FpsCounterType {
@@ -10,7 +11,7 @@ pub enum FpsCounterType {
 
 pub struct FpsCounter {
     counter_type: FpsCounterType,
-    displayed_fps: i32,
+    displayed_text: Text,
     display_timer: Timer,
     fps_list: Vec<i32>,
 }
@@ -42,7 +43,7 @@ impl FpsCounter {
 
     pub fn update(&mut self) {
         if self.display_timer.is_over() {
-            self.displayed_fps = self.reduce_fps_list();
+            self.displayed_text.content = self.reduce_fps_list().to_string();
             self.fps_list.clear();
             return;
         }
@@ -51,7 +52,7 @@ impl FpsCounter {
     }
 
     pub fn draw(&self) {
-        mq::draw_text(&self.displayed_fps.to_string(), 10.0, 40.0, 40.0, mq::GREEN);
+        self.displayed_text.draw();
     }
 }
 
@@ -59,7 +60,7 @@ impl Default for FpsCounter {
     fn default() -> Self {
         Self {
             counter_type: FpsCounterType::Min,
-            displayed_fps: mq::get_fps(),
+            displayed_text: Text::new(&mq::get_fps().to_string(), vec2(30.0, 30.0), 40, mq::GREEN),
             display_timer: Timer::new(0.5),
             fps_list: Vec::new(),
         }

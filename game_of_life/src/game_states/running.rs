@@ -1,10 +1,10 @@
 use macroquad::prelude as mq;
 use mq::KeyCode;
 
-use crate::consts::SECONDS_TO_UPDATE_GRID;
-use crate::{grid::Grid, util::Timer};
+use common::Timer;
 
 use super::{GameState, GameStateEditing, SharedState};
+use crate::{consts::SECONDS_TO_UPDATE_GRID, grid::Grid};
 
 #[derive(Debug)]
 pub struct GameStateRunning {

@@ -1,8 +1,9 @@
 use macroquad::prelude as mq;
 use mq::vec2;
 
+use common::Text;
+
 use super::{GameState, GameStateIdle, SharedState};
-use crate::util::Text;
 
 pub const TEXT_Y_OFFSET: f32 = 100.0;
 pub const FONT_SIZE: u16 = 70;

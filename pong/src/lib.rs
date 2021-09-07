@@ -1,15 +1,14 @@
 use macroquad::prelude as mq;
 use mq::KeyCode;
-use util::fps_counter::FpsCounter;
 
-use crate::game_states::{GameState, GameStateIdle, SharedState};
+use common::FpsCounter;
 
+use game_states::{GameState, GameStateIdle, SharedState};
 pub use score_manager::ScoreManager;
 
 mod entities;
 mod game_states;
 mod score_manager;
-mod util;
 
 pub struct Game {
     global: SharedState,

@@ -1,8 +1,8 @@
 use macroquad::prelude as mq;
 use mq::KeyCode;
 
+use common::FpsCounter;
 use game_states::{GameState, GameStateEditing, SharedState};
-use util::fps_counter::FpsCounter;
 
 use consts::CELL_PX_SIZE;
 

@@ -1,7 +1,7 @@
 use macroquad::prelude as mq;
 use mq::vec2;
 
-use crate::util::Text;
+use common::Text;
 
 const MARKER_GAP: f32 = 50.0;
 const TOP_MARGIN: f32 = 50.0;
