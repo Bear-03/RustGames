@@ -1,10 +1,9 @@
 use macroquad::prelude as mq;
 use mq::KeyCode;
 
-use common::Timer;
-
-use super::{GameState, GameStateEditing, SharedState};
-use crate::{consts::SECONDS_TO_UPDATE_GRID, grid::Grid};
+use super::{GameStateEditing, SharedState};
+use crate::{consts::SECONDS_TO_UPDATE_GRID, grid::Grid, GameStateBox};
+use common::{GameState, Timer};
 
 #[derive(Debug)]
 pub struct GameStateRunning {
@@ -36,7 +35,9 @@ impl GameStateRunning {
 }
 
 impl GameState for GameStateRunning {
-    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+    type Shared = SharedState;
+
+    fn update(&mut self, shared_state: &mut Self::Shared) -> Option<GameStateBox> {
         if mq::is_key_pressed(KeyCode::Space) {
             return Some(Box::new(GameStateEditing::new()));
         }

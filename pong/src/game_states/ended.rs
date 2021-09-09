@@ -1,9 +1,9 @@
 use macroquad::prelude as mq;
 use mq::vec2;
 
-use common::Text;
-
-use super::{GameState, GameStateIdle, SharedState};
+use super::{GameStateIdle, SharedState};
+use crate::GameStateBox;
+use common::{GameState, Text};
 
 pub const TEXT_Y_OFFSET: f32 = 100.0;
 pub const FONT_SIZE: u16 = 70;
@@ -32,7 +32,9 @@ impl GameStateEnded {
 }
 
 impl GameState for GameStateEnded {
-    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+    type Shared = SharedState;
+
+    fn update(&mut self, shared_state: &mut Self::Shared) -> Option<GameStateBox> {
         self.seconds_until_reset -= mq::get_frame_time();
 
         if self.seconds_until_reset < 0.0 {

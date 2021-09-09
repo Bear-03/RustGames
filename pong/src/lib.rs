@@ -1,18 +1,20 @@
 use macroquad::prelude as mq;
 use mq::KeyCode;
 
-use common::FpsCounter;
+use common::{FpsCounter, GameState};
 
-use game_states::{GameState, GameStateIdle, SharedState};
+use game_states::{GameStateIdle, SharedState};
 pub use score_manager::ScoreManager;
 
 mod entities;
 mod game_states;
 mod score_manager;
 
+pub type GameStateBox = Box<dyn GameState<Shared = SharedState>>;
+
 pub struct Game {
     global: SharedState,
-    game_state: Box<dyn GameState>,
+    game_state: GameStateBox,
     debug_mode: bool,
     fps_counter: FpsCounter,
 }

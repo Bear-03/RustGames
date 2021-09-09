@@ -1,9 +1,12 @@
 use macroquad::prelude as mq;
 
-use crate::entities::{Ball, Collider, RacketPair};
-use crate::ScoreManager;
+use crate::{
+    entities::{Ball, Collider, RacketPair},
+    GameStateBox, ScoreManager,
+};
 
-use super::{GameState, GameStateEnded, GameStateIdle, SharedState};
+use super::{GameStateEnded, GameStateIdle, SharedState};
+use common::GameState;
 
 #[derive(Debug)]
 pub struct GameStateRunning {
@@ -62,7 +65,9 @@ impl GameStateRunning {
 }
 
 impl GameState for GameStateRunning {
-    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+    type Shared = SharedState;
+
+    fn update(&mut self, shared_state: &mut Self::Shared) -> Option<GameStateBox> {
         shared_state.ball.update();
 
         shared_state.rackets.0.update();

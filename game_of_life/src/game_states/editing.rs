@@ -1,8 +1,9 @@
 use macroquad::prelude as mq;
 use mq::{KeyCode, MouseButton};
 
-use super::{GameState, GameStateRunning, SharedState};
-use crate::{consts::CELL_PX_SIZE, util::Vec2};
+use super::{GameStateRunning, SharedState};
+use crate::{consts::CELL_PX_SIZE, util::Vec2, GameStateBox};
+use common::GameState;
 
 /// Returns which cell the mouse is hovering over
 fn get_mouse_cell_pos() -> Vec2<usize> {
@@ -42,7 +43,9 @@ impl GameStateEditing {
 }
 
 impl GameState for GameStateEditing {
-    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+    type Shared = SharedState;
+
+    fn update(&mut self, shared_state: &mut Self::Shared) -> Option<GameStateBox> {
         self.handle_clicks(shared_state);
 
         if mq::is_key_pressed(KeyCode::Space) {

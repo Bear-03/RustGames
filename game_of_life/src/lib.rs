@@ -1,8 +1,8 @@
 use macroquad::prelude as mq;
 use mq::KeyCode;
 
-use common::FpsCounter;
-use game_states::{GameState, GameStateEditing, SharedState};
+use common::{FpsCounter, GameState};
+use game_states::{GameStateEditing, SharedState};
 
 use consts::CELL_PX_SIZE;
 
@@ -11,9 +11,11 @@ mod game_states;
 mod grid;
 pub mod util;
 
+pub type GameStateBox = Box<dyn GameState<Shared = SharedState>>;
+
 pub struct Game {
     shared_state: SharedState,
-    game_state: Box<dyn GameState>,
+    game_state: GameStateBox,
     debug_mode: bool,
     fps_counter: FpsCounter,
 }

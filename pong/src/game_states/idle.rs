@@ -1,9 +1,9 @@
 use macroquad::prelude as mq;
 use mq::vec2;
 
-use common::Text;
-
-use super::{GameState, GameStateRunning, SharedState};
+use super::{GameStateRunning, SharedState};
+use crate::GameStateBox;
+use common::{GameState, Text};
 
 pub const TEXT_Y_OFFSET: f32 = 100.0;
 pub const FONT_SIZE: u16 = 100;
@@ -34,7 +34,9 @@ impl GameStateIdle {
 }
 
 impl GameState for GameStateIdle {
-    fn update(&mut self, shared_state: &mut SharedState) -> Option<Box<dyn GameState>> {
+    type Shared = SharedState;
+
+    fn update(&mut self, shared_state: &mut Self::Shared) -> Option<GameStateBox> {
         let movement_leys_pressed = shared_state
             .rackets
             .get_all_controls()
@@ -47,7 +49,6 @@ impl GameState for GameStateIdle {
             None
         }
     }
-
     fn draw(&self) {
         if let Some(text) = &self.text {
             text.draw();
